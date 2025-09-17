@@ -3,10 +3,16 @@ val mainClassName = "oblik.LauncherKt"
 group = "oblik"
 version = "1.0"
 
-sourceSets {
-  main {
-    resources.srcDirs("db", "i18n")
-  }
+//sourceSets {
+//  main {
+//    resources.srcDirs("db", "i18n")
+//  }
+//}
+
+dependencies{
+  implementation(libs.arrow)
+  implementation(project(":common:types"))
+  implementation(project(":protocol:domain"))
 }
 
 tasks.jar {

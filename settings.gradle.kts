@@ -3,5 +3,10 @@ plugins {
 }
 rootProject.name = "oblik-pie"
 
-include("app")
+include(
+  "app",
+  "protocol",
+  "protocol:domain",
+  "common:types",
+)
 
