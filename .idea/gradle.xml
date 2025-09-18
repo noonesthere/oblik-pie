@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/common/types" />
             <option value="$PROJECT_DIR$/protocol" />
             <option value="$PROJECT_DIR$/protocol/domain" />
+            <option value="$PROJECT_DIR$/protocol/in-memory-storage" />
             <option value="$PROJECT_DIR$/protocol/scenarios" />
             <option value="$PROJECT_DIR$/protocol/scenarios/dto" />
             <option value="$PROJECT_DIR$/protocol/scenarios/inbound" />

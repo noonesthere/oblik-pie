@@ -11,6 +11,7 @@ include(
   "protocol:scenarios:inbound",
   "protocol:scenarios:outbound",
   "protocol:scenarios:dto",
+  "protocol:in-memory-storage",
   "common:types",
 )
 

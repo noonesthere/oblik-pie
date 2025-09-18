@@ -12,7 +12,7 @@ data class Address private constructor(
 ) : ValueObject {
 
   companion object {
-    fun create(street: String, building: String, flat: String): Either<CreateAddressError, Address> {
+    fun of(street: String, building: String, flat: String): Either<CreateAddressError, Address> {
       return when {
         street.isEmpty() -> CreateAddressError.EmptyStreet.left()
         building.isEmpty() -> CreateAddressError.EmptyBuilding.left()

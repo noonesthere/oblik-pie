@@ -3,7 +3,7 @@ package oblik.protocol.domain
 import java.time.LocalDate
 
 class Protocol(
-  private val id: Int,
+  val id: Int,
   private val number: String,
   private val beginAt: LocalDate,
   private val createdAt: LocalDate,

@@ -1,0 +1,3 @@
+package oblik.common.types.base
+
+interface Repository<T> //TODO: generics with T extends ...
