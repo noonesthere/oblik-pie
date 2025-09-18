@@ -7,6 +7,10 @@ include(
   "app",
   "protocol",
   "protocol:domain",
+  "protocol:scenarios",
+  "protocol:scenarios:inbound",
+  "protocol:scenarios:outbound",
+  "protocol:scenarios:dto",
   "common:types",
 )
 
