@@ -1,66 +1,71 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
+  alias(libs.plugins.kotlin.jvm)
 }
 
 group = "oblik"
 version = "1.0"
 
 subprojects {
-    apply(plugin = "kotlin")
+  apply(plugin = "kotlin")
 //    apply(plugin = "maven-publish")
 
-    sourceSets {
-        main {
-            java.setSrcDirs(emptyList<String>())
-            kotlin.setSrcDirs(listOf("src"))
-            resources.setSrcDirs(listOf("src")).exclude("**/*.kt")
-        }
-        test {
-            java.setSrcDirs(emptyList<String>())
-            kotlin.setSrcDirs(listOf("test"))
-            resources.setSrcDirs(listOf("test")).exclude("**/*.kt")
-        }
+  sourceSets {
+    main {
+      java.setSrcDirs(emptyList<String>())
+      kotlin.setSrcDirs(listOf("src"))
+      resources.setSrcDirs(listOf("src")).exclude("**/*.kt")
     }
+    test {
+      java.setSrcDirs(emptyList<String>())
+      kotlin.setSrcDirs(listOf("test"))
+      resources.setSrcDirs(listOf("test")).exclude("**/*.kt")
+    }
+  }
 
-    repositories {
-        mavenCentral()
-    }
+  repositories {
+    mavenCentral()
+    maven { url = uri("https://jitpack.io") }
+  }
 }
 
 tasks.jar {
-    archiveBaseName.set("${rootProject.name}-${project.name}")
-    manifest {
-        attributes(mapOf(
-            "Implementation-Title" to archiveBaseName,
-            "Implementation-Version" to project.version
-        ))
-    }
+  archiveBaseName.set("${rootProject.name}-${project.name}")
+  manifest {
+    attributes(
+      mapOf(
+        "Implementation-Title" to archiveBaseName,
+        "Implementation-Version" to project.version
+      )
+    )
+  }
 }
 
 java {
-    withSourcesJar()
+  withSourcesJar()
 }
 
 tasks.named<Jar>("sourcesJar") {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.test {
-    useJUnitPlatform()
-    jvmArgs("--enable-preview", "--add-opens=java.base/java.lang=ALL-UNNAMED")
+  useJUnitPlatform()
+  jvmArgs("--enable-preview", "--add-opens=java.base/java.lang=ALL-UNNAMED")
 }
 
 repositories {
-    mavenCentral()
+  mavenCentral()
+
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+  testImplementation(kotlin("test"))
 }
 
 tasks.test {
-    useJUnitPlatform()
+  useJUnitPlatform()
 }
+
 kotlin {
-    jvmToolchain(21)
+  jvmToolchain(21)
 }

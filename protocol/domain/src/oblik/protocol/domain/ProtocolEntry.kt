@@ -1,29 +1,26 @@
 package oblik.protocol.domain
 
-import oblik.common.types.Address
-import oblik.common.types.DocumentIdNo
-import oblik.common.types.ExceptionalReason
-import oblik.common.types.Phone
-import oblik.common.types.Rank
+import oblik.common.types.*
+import oblik.common.types.base.DomainEntity
+import oblik.common.types.base.Version
 import java.time.LocalDate
+import java.time.OffsetDateTime
 
 class ProtocolEntry(
-  private val  id: Int,
-  private val  protocolId: Int,
-  private val  orderNumber: Int,
-  private val  personId: Int,
-  private val  reason: ExceptionalReason,
-  private val  createdAt: LocalDate,
-  private val  expiredAt: LocalDate,
-  private val  rank: Rank,
-  private val  address: Address,
-  private val  phone: Phone,
-  private val  documentIdNo: DocumentIdNo,
-  private val status: ProtocolEntryStatus
-) {
+  id: ProtocolEntryId,
+  val protocolId: ProtocolId,
+  val orderNumber: Int,
+  val personId: Int,
+  val reason: ExceptionalReason,
+  val createdAt: OffsetDateTime,
+  val expiredAt: LocalDate,
+  val rank: Rank,
+  val address: Address,
+  val phone: Phone,
+  val documentIDNo: DocumentIDNo,
+  val status: ProtocolEntryStatus,
+  version: Version
+) : DomainEntity<ProtocolEntryId>(id, version) {
 
 }
 
-enum class ProtocolEntryStatus {
-
-}

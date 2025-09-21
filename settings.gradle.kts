@@ -4,14 +4,19 @@ plugins {
 rootProject.name = "oblik-pie"
 
 include(
+  // commons:
+  "common:types",
+  // main project:
   "app",
+  // protocol:
   "protocol",
   "protocol:domain",
   "protocol:scenarios",
   "protocol:scenarios:inbound",
   "protocol:scenarios:outbound",
   "protocol:scenarios:dto",
-  "protocol:in-memory-storage",
-  "common:types",
+  "protocol:adapters:postgres-persistence",
+  "protocol:adapters:rest",
+
 )
 

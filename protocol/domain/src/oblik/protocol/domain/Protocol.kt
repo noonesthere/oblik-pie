@@ -1,24 +1,56 @@
 package oblik.protocol.domain
 
+import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
+import oblik.common.types.base.AggregateRoot
+import oblik.common.types.base.BusinessError
+import oblik.common.types.base.Version
+import java.time.Instant
 import java.time.LocalDate
 
-class Protocol(
-  val id: Int,
-  private val number: String,
-  private val beginAt: LocalDate,
-  private val createdAt: LocalDate,
-  private val entries: List<ProtocolEntry>,
-  private val chiefMember: String,
-  private val secretaryMember: String,
-  private val members: List<String>,
-  private val status: ProtocolStatus
-) {
+class Protocol internal constructor(
+  id: ProtocolId,
+  val protocolNumber: ProtocolNumber,
+  val beginAt: LocalDate,
+  val createdAt: Instant,
+  val status: ProtocolStatus,
+  val entries: List<ProtocolEntry>,
+  val members: Members,
+  val updatedAt: Instant? = null,
+  val deletedAt: Instant? = null,
+  version: Version
+) : AggregateRoot<ProtocolId>(id, version) {
 
+  companion object {
+    fun create(
+      idGenerator: ProtocolIdGenerator,
+      protocolNumberAlreadyExists: ProtocolNumberAlreadyExists,
+      protocolNo: ProtocolNumber,
+      beginAt: LocalDate,
+      members: Members,
+      status: ProtocolStatus
+    ): Either<ProtocolAlreadyExistsWithSameName, Protocol> {
+
+      if (protocolNumberAlreadyExists.invoke(protocolNo)) {
+        return ProtocolAlreadyExistsWithSameName.left()
+      }
+
+      val id = idGenerator.generate()
+      return Protocol(
+        id = id,
+        protocolNumber = protocolNo,
+        beginAt = beginAt,
+        createdAt = Instant.now(),
+        status = status,
+        entries = emptyList(),
+        members = members,
+        version = Version.new()
+      ).apply {
+        addEvent(ProtocolCreatedDomainEvent(id.toIntValue())) // Example DomainEvent
+      }.right()
+    }
+  }
 }
 
-
-enum class ProtocolStatus(id: Int, title: String) {
-  UNKNOWN(0, "Невизначений"),
-  IN_PROGRESS(1, "Поточний"),
-  FINISHED(2, "Завершений");
-}
+object ProtocolAlreadyExistsWithSameName : BusinessError

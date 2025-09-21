@@ -5,7 +5,7 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="" />
+        <option name="gradleJvm" value="corretto-21" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -13,8 +13,10 @@
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/common/types" />
             <option value="$PROJECT_DIR$/protocol" />
+            <option value="$PROJECT_DIR$/protocol/adapters" />
+            <option value="$PROJECT_DIR$/protocol/adapters/postgres-persistence" />
+            <option value="$PROJECT_DIR$/protocol/adapters/rest" />
             <option value="$PROJECT_DIR$/protocol/domain" />
-            <option value="$PROJECT_DIR$/protocol/in-memory-storage" />
             <option value="$PROJECT_DIR$/protocol/scenarios" />
             <option value="$PROJECT_DIR$/protocol/scenarios/dto" />
             <option value="$PROJECT_DIR$/protocol/scenarios/inbound" />
