@@ -1,15 +1,17 @@
 package oblik.common.types.base
 
+import java.time.Instant
+
 open class DomainEntity<T> protected constructor(
   val id: T,
-  var version: Version
+  var updatedAt: Instant
 ) {
 
   private var events = ArrayList<DomainEvent>()
 
   protected fun addEvent(event: DomainEvent) {
     if (events.isEmpty()) {
-      version = version.next()
+      updatedAt = Instant.now()
     }
     events.add(event)
   }
@@ -18,19 +20,5 @@ open class DomainEntity<T> protected constructor(
     val res = events
     events = ArrayList()
     return res
-  }
-}
-
-class Version(private val value: Long) : ValueObject {
-
-  fun toLongValue() = value
-
-  fun next() = Version(value + 1)
-
-  fun previous() = Version(value - 1)
-
-  companion object {
-    fun new() = Version(0L)
-    fun from(value: Long) = Version(value)
   }
 }

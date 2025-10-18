@@ -1,12 +1,14 @@
 package oblik.protocol.adapters.rest
 
-import klite.annotations.GET
+import klite.annotations.POST
 import oblik.protocol.scenarios.inbound.CreateProtocol
 
 class CreateProtocolRoute(private val createProtocol: CreateProtocol) {
 
-  @GET
-  fun create() {
-    TODO()
+  @POST
+  fun create(body: CreatingProtocolWebModel) {
+    println(body)
   }
 }
+
+data class CreatingProtocolWebModel(val protocolNo: String, val startDate: String, val status: Int)

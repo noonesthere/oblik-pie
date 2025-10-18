@@ -14,3 +14,5 @@ ALTER SYSTEM SET min_wal_size = '100MB';
 ALTER SYSTEM SET max_wal_size = '2GB';
 ALTER SYSTEM SET wal_level = 'minimal';
 ALTER SYSTEM SET max_wal_senders = '0';
+
+CREATE DATABASE IF NOT EXISTS oblik;

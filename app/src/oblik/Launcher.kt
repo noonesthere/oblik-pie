@@ -10,10 +10,13 @@ import oblik.protocol.adapters.persistence.postgresql.CreateProtocolRepositoryAd
 import oblik.protocol.adapters.persistence.postgresql.PostgresProtocolEntryIdGenerator
 import oblik.protocol.adapters.persistence.postgresql.PostgresProtocolIdGenerator
 import oblik.protocol.adapters.rest.CreateProtocolRoute
+import oblik.protocol.adapters.rest.GetProtocolStatusesRoute
 import oblik.protocol.domain.ProtocolEntryIdGenerator
 import oblik.protocol.domain.ProtocolIdGenerator
 import oblik.protocol.scanarios.usecases.CreateProtocolUseCase
+import oblik.protocol.scanarios.usecases.GetProtocolStatusesUseCase
 import oblik.protocol.scenarios.inbound.CreateProtocol
+import oblik.protocol.scenarios.inbound.GetProtocolStatuses
 import oblik.protocol.scenarios.outbound.ProtocolPersister
 import java.io.PrintStream
 import java.nio.charset.StandardCharsets
@@ -46,6 +49,7 @@ fun main() {
     register<ProtocolEntryIdGenerator>(PostgresProtocolEntryIdGenerator::class)
 
     register<CreateProtocol>(CreateProtocolUseCase::class)
+    register<GetProtocolStatuses>(GetProtocolStatusesUseCase::class)
 
     // Main index
     val path: String = if (Config.isDev) "OblikUI" else "public"
@@ -60,6 +64,7 @@ fun main() {
     context("/api") {
       useOnly<JsonBody>()
       annotated<CreateProtocolRoute>("/protocols")
+      annotated<GetProtocolStatusesRoute>("/protocols/statuses")
     }
 
 //    val s = org.h2.tools.Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8082").start()

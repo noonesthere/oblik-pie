@@ -5,7 +5,6 @@ import arrow.core.left
 import arrow.core.right
 import oblik.common.types.base.AggregateRoot
 import oblik.common.types.base.BusinessError
-import oblik.common.types.base.Version
 import java.time.Instant
 import java.time.LocalDate
 
@@ -17,10 +16,9 @@ class Protocol internal constructor(
   val status: ProtocolStatus,
   val entries: List<ProtocolEntry>,
   val members: Members,
-  val updatedAt: Instant? = null,
-  val deletedAt: Instant? = null,
-  version: Version
-) : AggregateRoot<ProtocolId>(id, version) {
+  updatedAt: Instant,
+  val deletedAt: Instant? = null
+) : AggregateRoot<ProtocolId>(id, updatedAt) {
 
   companion object {
     fun create(
@@ -36,16 +34,15 @@ class Protocol internal constructor(
         return ProtocolAlreadyExistsWithSameName.left()
       }
 
-      val id = idGenerator.generate()
       return Protocol(
-        id = id,
+        id = idGenerator.generate(),
         protocolNumber = protocolNo,
         beginAt = beginAt,
         createdAt = Instant.now(),
         status = status,
         entries = emptyList(),
         members = members,
-        version = Version.new()
+        updatedAt = Instant.now() //Possible duplicate
       ).apply {
         addEvent(ProtocolCreatedDomainEvent(id.toIntValue())) // Example DomainEvent
       }.right()
