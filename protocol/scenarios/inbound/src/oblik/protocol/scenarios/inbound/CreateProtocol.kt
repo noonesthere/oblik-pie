@@ -1,7 +1,7 @@
 package oblik.protocol.scenarios.inbound
 
-import oblik.protocol.scenarios.dto.CreatingProtocol
+import oblik.protocol.scenarios.dto.NewProtocolInput
 
 interface CreateProtocol {
-  fun execute(protocol: CreatingProtocol)
+  fun execute(protocol: NewProtocolInput)
 }
